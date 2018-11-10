@@ -45,6 +45,10 @@ public class SimpleListPreference
 		entryView.setSummary(summary, currentPref);
 	}
 
+	public void setDialogButtonsColor(int color) {
+		dialogView.setButtonsColor(color);
+	}
+
 	@Override
 	public void onEntryClick() {
 		presenter.onEntryClicked();
