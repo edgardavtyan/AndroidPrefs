@@ -8,6 +8,9 @@
 		<attr name="cp_defaultValue" format="string" />
 		<attr name="cp_entries" format="reference" />
 		<attr name="cp_entryValues" format="reference" />
+		<attr name="cp_format" format="string" />
+		<attr name="cp_multiplier" format="fraction" />
+		<attr name="cp_maxValue" format="integer" />
 	</declare-styleable>
 
 	<declare-styleable name="SimpleListPref">
