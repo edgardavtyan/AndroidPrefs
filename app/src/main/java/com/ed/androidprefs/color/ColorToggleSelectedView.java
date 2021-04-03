@@ -2,19 +2,15 @@ package com.ed.androidprefs.color;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.ed.androidprefs.R;
-import com.ed.androidprefs.R2;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.ed.androidprefs.databinding.ViewColorToggleBinding;
 
 public class ColorToggleSelectedView extends FrameLayout {
-	@BindView(R2.id.color_view) ColorCircleView colorView;
-	@BindView(R2.id.check_icon) ImageView checkIcon;
+	private ViewColorToggleBinding binding;
 
 	public ColorToggleSelectedView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -27,15 +23,15 @@ public class ColorToggleSelectedView extends FrameLayout {
 	}
 
 	public void setChecked(boolean checked) {
-		checkIcon.setVisibility(checked ? VISIBLE : INVISIBLE);
+		binding.checkIcon.setVisibility(checked ? VISIBLE : INVISIBLE);
 	}
 
 	public int getColor() {
-		return colorView.getColor();
+		return binding.colorView.getColor();
 	}
 
 	public void setColor(int color) {
-		colorView.setColor(color);
+		binding.colorView.setColor(color);
 	}
 
 	@Override
@@ -43,11 +39,11 @@ public class ColorToggleSelectedView extends FrameLayout {
 		super.setLayoutParams(params);
 
 		int padding = params.width / 8;
-		checkIcon.setPadding(padding, padding, padding, padding);
+		binding.checkIcon.setPadding(padding, padding, padding, padding);
 	}
 
 	private void init(Context context) {
+		binding = ViewColorToggleBinding.inflate(LayoutInflater.from(context), this);
 		inflate(context, R.layout.view_color_toggle, this);
-		ButterKnife.bind(this);
 	}
 }

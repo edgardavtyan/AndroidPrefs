@@ -6,20 +6,14 @@ import android.support.v4.widget.CompoundButtonCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.TextView;
 
-import com.ed.androidprefs.R;
-import com.ed.androidprefs.R2;
 import com.ed.androidprefs.base.BasePreference;
+import com.ed.androidprefs.databinding.EntryCheckboxBinding;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class CheckboxPreference extends BasePreference implements View.OnClickListener {
-	@BindView(R2.id.title) TextView titleView;
-	@BindView(R2.id.checkbox) CheckBox checkboxView;
 
+	private EntryCheckboxBinding binding;
 	private CheckboxPreferencePresenter presenter;
 
 	public CheckboxPreference(Context context, AttributeSet attrs) {
@@ -33,15 +27,15 @@ public class CheckboxPreference extends BasePreference implements View.OnClickLi
 	}
 
 	public void setTitle(String title) {
-		titleView.setText(title);
+		binding.title.setText(title);
 	}
 
 	public void setChecked(boolean checked) {
-		checkboxView.setChecked(checked);
+		binding.checkbox.setChecked(checked);
 	}
 
 	public void setCheckBoxColor(int color) {
-		CompoundButtonCompat.setButtonTintList(checkboxView, ColorStateList.valueOf(color));
+		CompoundButtonCompat.setButtonTintList(binding.checkbox, ColorStateList.valueOf(color));
 	}
 
 	@Override
@@ -50,8 +44,7 @@ public class CheckboxPreference extends BasePreference implements View.OnClickLi
 	}
 
 	private void initPref(AttributeSet attrs) {
-		LayoutInflater.from(context).inflate(R.layout.entry_checkbox, this, true);
-		ButterKnife.bind(this);
+		binding = EntryCheckboxBinding.inflate(LayoutInflater.from(context), this);
 
 		setOrientation(HORIZONTAL);
 		setOnClickListener(this);

@@ -4,18 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.ed.androidprefs.R;
-import com.ed.androidprefs.R2;
+import com.ed.androidprefs.databinding.EntryColorBinding;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import lombok.Setter;
 
 public class ColorSelectionEntry implements View.OnClickListener {
-	@BindView(R2.id.title) TextView titleView;
-	@BindView(R2.id.color) ColorCircleView colorView;
+
+	private final EntryColorBinding binding;
 
 	private @Setter OnClickListener onClickListener;
 
@@ -24,17 +20,16 @@ public class ColorSelectionEntry implements View.OnClickListener {
 	}
 
 	public ColorSelectionEntry(Context context, LinearLayout view) {
-		LayoutInflater.from(context).inflate(R.layout.entry_color, view, true);
-		ButterKnife.bind(this, view);
+		binding = EntryColorBinding.inflate(LayoutInflater.from(context), view);
 		view.setOnClickListener(this);
 	}
 
 	public void setTitle(String title) {
-		titleView.setText(title);
+		binding.title.setText(title);
 	}
 
 	public void setColor(int color) {
-		colorView.setColor(color);
+		binding.color.setColor(color);
 	}
 
 	@Override

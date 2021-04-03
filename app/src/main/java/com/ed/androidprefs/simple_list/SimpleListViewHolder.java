@@ -2,22 +2,17 @@ package com.ed.androidprefs.simple_list;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.RadioButton;
-import android.widget.TextView;
 
-import com.ed.androidprefs.R2;
+import com.ed.androidprefs.databinding.ListitemRadioBinding;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import lombok.Getter;
 import lombok.Setter;
 
 public class SimpleListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+	private final ListitemRadioBinding binding;
+
 	protected @Getter @Setter String value;
 	protected @Setter OnHolderClickListener onHolderClickListener;
-
-	@BindView(R2.id.radio_button) RadioButton radioButton;
-	@BindView(R2.id.title) TextView titleView;
 
 	public interface OnHolderClickListener {
 		void onHolderClick(String value);
@@ -25,16 +20,16 @@ public class SimpleListViewHolder extends RecyclerView.ViewHolder implements Vie
 
 	public SimpleListViewHolder(View itemView) {
 		super(itemView);
-		ButterKnife.bind(this, itemView);
-		itemView.setOnClickListener(this);
+		binding = ListitemRadioBinding.bind(itemView);
+		binding.getRoot().setOnClickListener(this);
 	}
 
 	public void setChecked(boolean checked) {
-		radioButton.setChecked(checked);
+		binding.radioButton.setChecked(checked);
 	}
 
 	public void setTitle(String title) {
-		titleView.setText(title);
+		binding.title.setText(title);
 	}
 
 	@Override

@@ -4,18 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.ed.androidprefs.R;
-import com.ed.androidprefs.R2;
+import com.ed.androidprefs.databinding.EntrySummaryBinding;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import lombok.Setter;
 
 public class SummaryEntry implements View.OnClickListener {
-	@BindView(R2.id.title) TextView titleView;
-	@BindView(R2.id.summary) TextView summaryView;
+	private final EntrySummaryBinding binding;
 
 	private @Setter OnClickListener onClickListener;
 
@@ -24,18 +20,18 @@ public class SummaryEntry implements View.OnClickListener {
 	}
 
 	public SummaryEntry(Context context, LinearLayout view) {
+		binding = EntrySummaryBinding.inflate(LayoutInflater.from(context), view);
 		LayoutInflater.from(context).inflate(R.layout.entry_summary, view, true);
-		ButterKnife.bind(this, view);
 		view.setOrientation(LinearLayout.VERTICAL);
 		view.setOnClickListener(this);
 	}
 
 	public void setTitle(String title) {
-		titleView.setText(title);
+		binding.title.setText(title);
 	}
 
 	public void setSummary(String summary, String currentPref) {
-		summaryView.setText(summary.replace("%s", currentPref));
+		binding.summary.setText(summary.replace("%s", currentPref));
 	}
 
 	@Override

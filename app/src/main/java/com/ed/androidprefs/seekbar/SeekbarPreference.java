@@ -4,22 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
-import com.ed.androidprefs.R;
-import com.ed.androidprefs.R2;
 import com.ed.androidprefs.base.BasePreference;
-
-import app.minimize.com.seek_bar_compat.SeekBarCompat;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.ed.androidprefs.databinding.EntrySeekbarBinding;
 
 public class SeekbarPreference extends BasePreference {
-	@BindView(R2.id.title) TextView titleView;
-	@BindView(R2.id.seekbar) SeekBarCompat seekbarView;
-	@BindView(R2.id.value_text) TextView valueTextView;
 
 	private SeekbarPreferencePresenter presenter;
+	private EntrySeekbarBinding binding;
 
 	private SeekBar.OnSeekBarChangeListener onSeekbarChangeListener = new SeekBar.OnSeekBarChangeListener() {
 		@Override
@@ -47,37 +39,36 @@ public class SeekbarPreference extends BasePreference {
 	}
 
 	public void setTitle(String title) {
-		titleView.setText(title);
+		binding.title.setText(title);
 	}
 
 	public int getSeek() {
-		return seekbarView.getProgress();
+		return binding.seekbar.getProgress();
 	}
 
 	public void setSeek(int seek) {
-		seekbarView.setProgress(seek);
+		binding.seekbar.setProgress(seek);
 	}
 
 	public void setSeekText(String text) {
-		valueTextView.setText(text);
+		binding.valueText.setText(text);
 	}
 
 	public void setMaxSeek(int maxValue) {
-		seekbarView.setMax(maxValue);
+		binding.seekbar.setMax(maxValue);
 	}
 
 	public void setColor(int color) {
-		seekbarView.setProgressColor(color);
-		seekbarView.setThumbColor(color);
+		binding.seekbar.setProgressColor(color);
+		binding.seekbar.setThumbColor(color);
 	}
 
 	private void initPref(AttributeSet attrs) {
-		LayoutInflater.from(context).inflate(R.layout.entry_seekbar, this, true);
-		ButterKnife.bind(this);
+		binding = EntrySeekbarBinding.inflate(LayoutInflater.from(context), this);
 
 		setOrientation(VERTICAL);
 		setPadding(0, 0, 0, 0);
-		seekbarView.setOnSeekBarChangeListener(onSeekbarChangeListener);
+		binding.seekbar.setOnSeekBarChangeListener(onSeekbarChangeListener);
 
 		SeekbarPreferenceModel model = new SeekbarPreferenceModel(context, attrs);
 
